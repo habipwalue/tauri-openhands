@@ -6,10 +6,19 @@ import "./App.css";
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [sumResult, setSumResult] = useState(null);
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke("greet", { name }));
+  }
+
+  async function calculateSum() {
+    // Call our new sum_numbers function
+    const result = await invoke("sum_numbers", { a: parseInt(num1), b: parseInt(num2) });
+    setSumResult(result);
   }
 
   return (
@@ -44,6 +53,31 @@ function App() {
         <button type="submit">Greet</button>
       </form>
       <p>{greetMsg}</p>
+
+      <div className="calculator">
+        <h2>Number Calculator</h2>
+        <div className="row">
+          <input
+            type="number"
+            value={num1}
+            onChange={(e) => setNum1(e.currentTarget.value)}
+            placeholder="First number"
+          />
+          <span>+</span>
+          <input
+            type="number"
+            value={num2}
+            onChange={(e) => setNum2(e.currentTarget.value)}
+            placeholder="Second number"
+          />
+          <button onClick={calculateSum}>Calculate Sum</button>
+        </div>
+        {sumResult !== null && (
+          <p>
+            Sum result: <strong>{sumResult}</strong>
+          </p>
+        )}
+      </div>
     </main>
   );
 }
