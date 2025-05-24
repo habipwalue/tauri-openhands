@@ -4,40 +4,107 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/src/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
+    <title>Infinite Canvas App</title>
     <script type="module" src="/src/main.ts" defer></script>
   </head>
 
   <body>
-    <main class="container">
-      <h1>Welcome to Tauri</h1>
-
-      <div class="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/src/assets/vite.svg" class="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img
-            src="/src/assets/tauri.svg"
-            class="logo tauri"
-            alt="Tauri logo"
-          />
-        </a>
-        <a href="https://www.typescriptlang.org/docs" target="_blank">
-          <img
-            src="/src/assets/typescript.svg"
-            class="logo typescript"
-            alt="typescript logo"
-          />
-        </a>
+    <div id="app">
+      <div id="canvas-container">
+        <canvas id="main-canvas"></canvas>
       </div>
-      <p>Click on the Tauri logo to learn more about the framework</p>
-
-      <form class="row" id="greet-form">
-        <input id="greet-input" placeholder="Enter a name..." />
-        <button type="submit">Greet</button>
-      </form>
-      <p id="greet-msg"></p>
-    </main>
+      <div id="toolbar">
+        <div class="tool-group">
+          <button id="add-webview-btn" class="tool-btn">Add WebView</button>
+          <button id="add-egui-btn" class="tool-btn">Add Egui Widget</button>
+          <button id="add-skia-btn" class="tool-btn">Add Skia Canvas</button>
+        </div>
+        <div class="tool-group">
+          <button id="pan-tool-btn" class="tool-btn">Pan</button>
+          <button id="select-tool-btn" class="tool-btn">Select</button>
+          <button id="reset-view-btn" class="tool-btn">Reset View</button>
+        </div>
+        <div class="tool-group">
+          <button id="delete-tile-btn" class="tool-btn">Delete Selected</button>
+        </div>
+      </div>
+      <div id="status-bar">
+        <div id="zoom-info">Zoom: 100%</div>
+        <div id="position-info">Position: 0, 0</div>
+      </div>
+      <div id="dialogs">
+        <div id="webview-dialog" class="dialog">
+          <h3>Add WebView</h3>
+          <div class="form-group">
+            <label for="webview-url">URL:</label>
+            <input type="text" id="webview-url" value="https://example.com" />
+          </div>
+          <div class="form-group">
+            <label for="webview-title">Title:</label>
+            <input type="text" id="webview-title" value="New WebView" />
+          </div>
+          <div class="form-group">
+            <label for="webview-width">Width:</label>
+            <input type="number" id="webview-width" value="400" />
+          </div>
+          <div class="form-group">
+            <label for="webview-height">Height:</label>
+            <input type="number" id="webview-height" value="300" />
+          </div>
+          <div class="dialog-buttons">
+            <button id="webview-cancel">Cancel</button>
+            <button id="webview-add">Add</button>
+          </div>
+        </div>
+        <div id="egui-dialog" class="dialog">
+          <h3>Add Egui Widget</h3>
+          <div class="form-group">
+            <label for="egui-type">Widget Type:</label>
+            <select id="egui-type">
+              <option value="button">Button</option>
+              <option value="slider">Slider</option>
+              <option value="checkbox">Checkbox</option>
+              <option value="textbox">Text Box</option>
+              <option value="colorpicker">Color Picker</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="egui-title">Title:</label>
+            <input type="text" id="egui-title" value="New Egui Widget" />
+          </div>
+          <div class="form-group">
+            <label for="egui-width">Width:</label>
+            <input type="number" id="egui-width" value="200" />
+          </div>
+          <div class="form-group">
+            <label for="egui-height">Height:</label>
+            <input type="number" id="egui-height" value="150" />
+          </div>
+          <div class="dialog-buttons">
+            <button id="egui-cancel">Cancel</button>
+            <button id="egui-add">Add</button>
+          </div>
+        </div>
+        <div id="skia-dialog" class="dialog">
+          <h3>Add Skia Canvas</h3>
+          <div class="form-group">
+            <label for="skia-title">Title:</label>
+            <input type="text" id="skia-title" value="New Skia Canvas" />
+          </div>
+          <div class="form-group">
+            <label for="skia-width">Width:</label>
+            <input type="number" id="skia-width" value="300" />
+          </div>
+          <div class="form-group">
+            <label for="skia-height">Height:</label>
+            <input type="number" id="skia-height" value="200" />
+          </div>
+          <div class="dialog-buttons">
+            <button id="skia-cancel">Cancel</button>
+            <button id="skia-add">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
